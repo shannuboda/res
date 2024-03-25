@@ -74,7 +74,9 @@ header{
     justify-content: center;
    
 }
-
+.prin-content{
+    display: none !important;
+}
 @media screen and (max-width:1041px) {
     .rh1{
         display:flex;
@@ -116,7 +118,7 @@ header{
     flex-wrap: wrap;
     flex-direction: column;
 }
-.res-p1 button{
+.res-p1 button, .butt{
     
     display: inline-block;
                     outline: none;
@@ -191,7 +193,36 @@ th {
             word-break: break-all; /* Break long words */
         }
 
-
+        @media print {
+            body{
+                background: white;
+            }
+    .rh1 img{
+        width: 16rem;
+        margin-left: 14rem;
+    }
+    .rh2{
+    text-align: center;
+    margin-left: 3rem;
+}
+    .res-p1, .d1{
+        display: none;
+    }
+    .prin-content{
+    display: flex !important;
+}
+table {
+            border-collapse: collapse;
+            width: 100%;
+            display: flex;
+            margin-bottom: 4rem;
+            background: white;
+            justify-content: left;
+        }
+        .butt{
+            display: none;
+        }
+}
 
 
         
@@ -214,13 +245,27 @@ th {
        <b>Enter Hall Ticket Number #: </b> &nbsp;&nbsp; <input type="text" name="" id="myinp" class="inp" placeholder="Enter Hall Ticket Number">
         <button onclick="fetchStudentData(document.getElementById('myinp').value)">Show Result</button>
     </div>
+    <hr>
     <div class="d1" style="text-align: center;margin-top: 2rem;margin-bottom: -3rem;">
         <h4 id="d1name">Name: </h4>
         <br><br>
     </div>
+
+    <div class="prin-content" style="display: flex;justify-content: space-between;align-items: center;">
+        <div class="prindata">
+            <h4 id="d1name">Name: </h4> 
+            <h4 id="d1name">Roll Number: </h4>
+            <h4 id="d1name">Regulation: </h4>
+            <h4 id="d1name">Section: </h4>
+            <h4 id="d1name">Branch: </h4>
+        </div>
+        <div class="prinphoto">
+            <img src="./Harshitha k_CSE_Growupp_10 LPA.jpg" alt="" width="153rem" style="margin-left: -14rem;">
+        </div>
+    </div>
+    
     <div class="data">
-       
-       
+    
     <table id="markSheet">
         <thead>
             <tr>
@@ -237,7 +282,12 @@ th {
             <!-- This will be populated dynamically -->
         </tbody>
     </table>
+    <br><br>
+    
 </div>
+<br>
+<button class="butt" onclick="window.print()" style="margin-left: 2rem; margin-bottom: 5rem;">Show Result</button>
+
     <script>
         // Function to fetch student data based on roll number
         function fetchStudentData(rollNumber) {
