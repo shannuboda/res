@@ -71,6 +71,7 @@ header{
     overflow-x: auto;
     margin-top: 2rem;
     width: -webkit-fill-available;
+    margin-left: -6rem;
     justify-content: center;
    
 }
@@ -91,22 +92,15 @@ header{
     }
     
 }
+
 @media screen and (max-width:938px) {
     .data {
-    display: flex;
+     display: flex;
     overflow-x: auto;
     margin-top: 2rem;
     justify-content: left;
     width: -webkit-fill-available !important;
-}
-}
-@media screen and (max-width:938px) {
-    .data {
-    display: flex;
-    overflow-x: auto;
-    margin-top: 2rem;
-    justify-content: left;
-    width: -webkit-fill-available !important;
+    margin-left:0rem;
 }
 }
 .res-p1{
@@ -213,17 +207,26 @@ th {
 }
 table {
             border-collapse: collapse;
-            width: 100%;
+            width: 20% !important;
             display: flex;
             margin-bottom: 4rem;
             background: white;
-            margin-left: 2rem;
+            margin-left: -25rem;
             justify-content: left;
         }
         .butt{
             display: none;
         }
+        th {
+            white-space:wrap; /* Prevent line breaks */
+        }
+       td {
+            word-break:keep-all; 
+            text-align: center;/* Break long words */
+        }
 }
+
+
 
 
         
@@ -274,10 +277,12 @@ table {
                 <th>S. No</th>
                 <th>Subject Name</th>
                 <th>Subject Code</th>
-                <th>Internal Grade</th>
-                <th>External Grade</th>
+                <th>Internal Marks</th>
+                <th>External Marks</th>
+                <th>Total Marks</th>
                 <th>Pass/Fail</th>
                 <th>Credits</th>
+                <th>Grade</th>
             </tr>
         </thead>
         <tbody id="markSheetBody">
@@ -288,7 +293,7 @@ table {
     
 </div>
 <br>
-<button class="butt" onclick="window.print()" style="margin-left: 2rem; margin-bottom: 5rem;">Show Result</button>
+<button class="butt" onclick="window.print()" style="margin-left: 2rem; margin-bottom: 5rem;">Print Result</button>
 
     <script>
         // Function to fetch student data based on roll number
@@ -303,26 +308,32 @@ table {
                         {
                             "subject_name": "Mathematics",
                             "subject_code": "MTH101",
-                            "internal_grade": 85,
-                            "external_grade": 78,
+                            "internal_marks": 85,
+                            "external_marks": 78,
+                            "total_marks":129,
                             "pass_fail": "Pass",
-                            "credits": 4
+                            "credits": 4,
+                            "grade":"A"
                         },
                         {
                             "subject_name": "Physics",
                             "subject_code": "PHY102",
-                            "internal_grade": 75,
-                            "external_grade": 80,
+                            "internal_marks": 75,
+                            "external_marks": 80,
+                            "total_marks":129,
                             "pass_fail": "Pass",
-                            "credits": 3
+                            "credits": 4,
+                            "grade":"A"
                         },
                         {
                             "subject_name": "Chemistry",
                             "subject_code": "CHM103",
-                            "internal_grade": 80,
-                            "external_grade": 72,
+                            "internal_marks": 80,
+                            "external_marks": 72,
+                            "total_marks":129,
                             "pass_fail": "Pass",
-                            "credits": 3
+                            "credits": 4,
+                            "grade":"A"
                         }
                     ]
                 },
@@ -333,26 +344,32 @@ table {
                         {
                             "subject_name": "Mathematics",
                             "subject_code": "MTH101",
-                            "internal_grade": 78,
-                            "external_grade": 82,
+                            "internal_marks": 78,
+                            "external_marks": 82,
+                            "total_marks":129,
                             "pass_fail": "Pass",
-                            "credits": 4
+                            "credits": 4,
+                            "grade":"A"
                         },
                         {
                             "subject_name": "Physics",
                             "subject_code": "PHY102",
-                            "internal_grade": 70,
-                            "external_grade": 75,
+                            "internal_marks": 70,
+                            "external_marks": 75,
+                            "total_marks":129,
                             "pass_fail": "Pass",
-                            "credits": 3
+                            "credits": 4,
+                            "grade":"A"
                         },
                         {
                             "subject_name": "Chemistry",
                             "subject_code": "CHM103",
-                            "internal_grade": 75,
-                            "external_grade": 68,
+                            "internal_marks": 75,
+                            "external_marks": 68,
+                            "total_marks":129,
                             "pass_fail": "Pass",
-                            "credits": 3
+                            "credits": 4,
+                            "grade":"A"
                         }
                     ]
                 }
@@ -373,10 +390,12 @@ if (student) {
             <td>${index + 1}</td>
             <td>${subject.subject_name}</td>
             <td>${subject.subject_code}</td>
-            <td>${subject.internal_grade}</td>
-            <td>${subject.external_grade}</td>
+            <td>${subject.internal_marks}</td>
+            <td>${subject.external_marks}</td>
+            <td>${subject.total_marks}</td>
             <td>${subject.pass_fail}</td>
             <td>${subject.credits}</td>
+            <td>${subject.grade}</td>
         `;
         markSheetBody.appendChild(newRow); // Append row to table body
     });
