@@ -66,6 +66,15 @@ header{
 .rh2 h4{
     color: rgba(233, 17, 17, 0.884);
 }
+.data{
+    display: flex;
+    overflow-x: auto;
+    margin-top: 2rem;
+    width: -webkit-fill-available;
+    justify-content: center;
+   
+}
+
 @media screen and (max-width:1041px) {
     .rh1{
         display:flex;
@@ -78,6 +87,25 @@ header{
         width: -webkit-fill-available;
         flex-direction: column;
     }
+    
+}
+@media screen and (max-width:938px) {
+    .data {
+    display: flex;
+    overflow-x: auto;
+    margin-top: 2rem;
+    justify-content: left;
+    width: -webkit-fill-available !important;
+}
+}
+@media screen and (max-width:938px) {
+    .data {
+    display: flex;
+    overflow-x: auto;
+    margin-top: 2rem;
+    justify-content: left;
+    width: -webkit-fill-available !important;
+}
 }
 .res-p1{
     display: flex;
@@ -137,11 +165,41 @@ header{
 .inp:focus{
                     border: 3px solid #5551ff;
                 }
+
+
+
+                table {
+            border-collapse: collapse;
+            width: 50%;
+            display: flex;
+            margin-bottom: 4rem;
+            background: white;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+            background: white;
+        }
+        
+th {
+            white-space: nowrap; /* Prevent line breaks */
+        }
+
+        td {
+            word-break: break-all; /* Break long words */
+        }
+
+
+
+
+        
 </style>
 <body>
     <header>
         <div class="rh1">
-            <img src="/sv-colleges-logo-dark.png" alt="">
+            <img src="sv-colleges-logo-dark.png" alt="">
         </div>
         <div class="rh2">
             <h3>Jawaharlal Nehru Technological University Anantapur.</h3>
@@ -153,9 +211,135 @@ header{
         <h5>B.Pharmacy III Year I Semester (R19) Regular & supplementary Examinations, February 2024</h5>
     </div>
     <div class="res-p1">
-       <b>Enter Hall Ticket Number #: </b> &nbsp;&nbsp; <input type="text" name="" id="" class="inp" placeholder="Enter Hall Ticket Number">
-        <button>Show Result</button>
+       <b>Enter Hall Ticket Number #: </b> &nbsp;&nbsp; <input type="text" name="" id="myinp" class="inp" placeholder="Enter Hall Ticket Number">
+        <button onclick="fetchStudentData(document.getElementById('myinp').value)">Show Result</button>
     </div>
+    <div class="d1" style="text-align: center;margin-top: 2rem;margin-bottom: -3rem;">
+        <h4 id="d1name">Name: </h4>
+        <br><br>
+    </div>
+    <div class="data">
+       
+       
+    <table id="markSheet">
+        <thead>
+            <tr>
+                <th>S. No</th>
+                <th>Subject Name</th>
+                <th>Subject Code</th>
+                <th>Internal Grade</th>
+                <th>External Grade</th>
+                <th>Pass/Fail</th>
+                <th>Credits</th>
+            </tr>
+        </thead>
+        <tbody id="markSheetBody">
+            <!-- This will be populated dynamically -->
+        </tbody>
+    </table>
+</div>
+    <script>
+        // Function to fetch student data based on roll number
+        function fetchStudentData(rollNumber) {
+            // Here, you would fetch data from your database or API
+            // For demonstration, I'll just use placeholder data
+            let studentData = [
+                {
+                    "name": "John Doe",
+                    "roll_number": "1001",
+                    "subjects": [
+                        {
+                            "subject_name": "Mathematics",
+                            "subject_code": "MTH101",
+                            "internal_grade": 85,
+                            "external_grade": 78,
+                            "pass_fail": "Pass",
+                            "credits": 4
+                        },
+                        {
+                            "subject_name": "Physics",
+                            "subject_code": "PHY102",
+                            "internal_grade": 75,
+                            "external_grade": 80,
+                            "pass_fail": "Pass",
+                            "credits": 3
+                        },
+                        {
+                            "subject_name": "Chemistry",
+                            "subject_code": "CHM103",
+                            "internal_grade": 80,
+                            "external_grade": 72,
+                            "pass_fail": "Pass",
+                            "credits": 3
+                        }
+                    ]
+                },
+                {
+                    "name": "Jane Smith",
+                    "roll_number": "1002",
+                    "subjects": [
+                        {
+                            "subject_name": "Mathematics",
+                            "subject_code": "MTH101",
+                            "internal_grade": 78,
+                            "external_grade": 82,
+                            "pass_fail": "Pass",
+                            "credits": 4
+                        },
+                        {
+                            "subject_name": "Physics",
+                            "subject_code": "PHY102",
+                            "internal_grade": 70,
+                            "external_grade": 75,
+                            "pass_fail": "Pass",
+                            "credits": 3
+                        },
+                        {
+                            "subject_name": "Chemistry",
+                            "subject_code": "CHM103",
+                            "internal_grade": 75,
+                            "external_grade": 68,
+                            "pass_fail": "Pass",
+                            "credits": 3
+                        }
+                    ]
+                }
+            ];
+
+            let student = studentData.find(student => student.roll_number === rollNumber);
+
+if (student) {
+    // Clear existing rows from the table body
+    let markSheetBody = document.getElementById("markSheetBody");
+    markSheetBody.innerHTML = ""; // Clear existing content
+    document.getElementById('d1name').innerHTML = 'Name: ' + student.name;
+
+    // Populate the table with student data
+    student.subjects.forEach((subject, index) => {
+        let newRow = document.createElement("tr");
+        newRow.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${subject.subject_name}</td>
+            <td>${subject.subject_code}</td>
+            <td>${subject.internal_grade}</td>
+            <td>${subject.external_grade}</td>
+            <td>${subject.pass_fail}</td>
+            <td>${subject.credits}</td>
+        `;
+        markSheetBody.appendChild(newRow); // Append row to table body
+    });
+
+    // Make the table container visible
+    markSheetBody.parentElement.style.display = 'block';
+} else {
+    // If no student found, clear the table body and hide the container
+    document.getElementById("markSheetBody").innerHTML = "<tr><td colspan='7'>No student found with the given roll number</td></tr>";
+    document.getElementById("markSheetBody").parentElement.style.display = 'none';
+}
+
+        }
+
+    </script>
 
 </body>
 </html>
